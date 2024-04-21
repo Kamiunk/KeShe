@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include "Student.h"
 void loadStudents() {
-    FILE *file = fopen("D:\\github1\\daily-learning\\daily-learning\\KeShe\\src\\Student.dat", "r");
+    FILE *file = fopen("D:\\githubFst_test\\KeShe\\src\\Student.dat", "r");
     if (file == NULL) {
         printf("No student data to load.\n");
         return;
@@ -31,7 +31,7 @@ void loadStudents() {
 }
 
 void saveStudents() {
-    FILE *file = fopen("D:\\github1\\daily-learning\\daily-learning\\KeShe\\src\\Student.dat", "w");
+    FILE *file = fopen("D:\\githubFst_test\\KeShe\\src\\Student.dat", "w");
     if (file == NULL) {
         printf("Failed to save students.\n");
         return;
@@ -48,6 +48,7 @@ void saveStudents() {
                 students[i].dormitoryLocation);
     }
     fclose(file);
+    studentCount = 0;
     printf("Students saved successfully.\n");
 }
 

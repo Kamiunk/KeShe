@@ -37,6 +37,11 @@ typedef struct {
 Student students[MAX_STUDENTS];
 int studentCount = 0;
 
+void clear_input_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { /* 清空缓冲区 */ }
+}
+
 void clearInputBuffer() {
     while (getchar() != '\n');  // 读取直到行尾，丢弃换行符
 }
@@ -102,20 +107,20 @@ void registerUser() {
     studentCount++;
     printf("User registered successfully!\n");
 }
-
 char *loginUser() {
     char userID[USERNAME_LEN];
     char password[PASSWORD_LEN];
 
     printf("Enter userID: ");
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) { /* 清空缓冲区 */ }
+    clear_input_buffer();  // 清除任何残留的输入，包括换行符
     fgets(userID, USERNAME_LEN, stdin);
-    userID[strcspn(userID, "\n")] = 0; // 移除换行符
+    userID[strcspn(userID, "\n")] = 0; // 移除字符串末尾的换行符
 
     printf("Enter password: ");
+    clear_input_buffer();  // 再次清除，以防万一
     fgets(password, PASSWORD_LEN, stdin);
-    password[strcspn(password, "\n")] = 0; // 移除换行符
+    password[strcspn(password, "\n")] = 0; // 移除字符串末尾的换行符
+
     if (strcmp((const char *) admin, userID) == 0 && strcmp((const char *) adminpasswords, password) == 0)
         return "007";
     else {

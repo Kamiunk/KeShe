@@ -6,8 +6,10 @@
 #include <stddef.h>
 #include "Student.h"
 #include "DocProcess.h"
+
 int main() {
     int choice;
+    char input[100];
     char* a ;
     char removeID[ID_LEN];
     while (1) {
@@ -17,7 +19,11 @@ int main() {
         printf("2. Log in\n");
         printf("3. Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        fgets(input, sizeof(input), stdin);  // 使用 fgets 读取整行
+        if (sscanf(input, "%d", &choice) != 1) {  // 尝试从读取的行中解析整数
+            printf("Invalid input. Please enter a number.\n");
+            continue;  // 如果解析失败，提示重新输入
+        }
         switch (choice) {
             case 1:
                 registerUser();
@@ -25,7 +31,7 @@ int main() {
                 break;
             case 2:
                 a = loginUser();
-                if (strcmp(a, (const char *) admin) == 0) {
+                if (strcmp(a, admin) == 0) {
                     while (1) {
                         printf("\n欢迎回来！管理员\n");
                         printf("1. 查看所有学生\n");
