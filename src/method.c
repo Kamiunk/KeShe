@@ -1,0 +1,79 @@
+//
+// Created by Administrator on 24-4-16.
+//
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include "Student.h"
+#include "DocProcess.h"
+int main() {
+    int choice;
+    char* a ;
+    char removeID[ID_LEN];
+    while (1) {
+        loadStudents();
+        printf("\nStudent Dorm Management System\n");
+        printf("1. Sign up\n");
+        printf("2. Log in\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                registerUser();
+                saveStudents();
+                break;
+            case 2:
+                a = loginUser();
+                if (strcmp(a, (const char *) admin) == 0) {
+                    while (1) {
+                        printf("\n欢迎回来！管理员\n");
+                        printf("1. 查看所有学生\n");
+                        printf("2. 查找学生\n");
+                        printf("3.删除学生信息\n");
+                        printf("4.Exit \n");
+                        printf("Enter your choice: ");
+                        scanf("%d", &choice);
+                        switch (choice) {
+                            case 1:
+                                showStudents();
+                                break;
+                            case 2:
+                                searchStudent();
+                                break;
+                            case 3:
+                                printf("请输入要删除学生的学号：");
+                                scanf("%s",removeID);
+                                removeStudent(removeID);
+                                break;
+                            case 4:
+                                saveStudents();
+                                printf("Exiting program.\n");
+                                exit(0);
+                            default:
+                                printf("Invalid choice. Please choose again.\n");
+                        }
+                    }
+                }
+                else {
+                    printf("欢迎回来！%s\n",a);
+                    printf("以下是您的个人信息：\n");
+                    Student *s0=(Student *)((char *)a - offsetof(Student, name));
+                    printf("名字：%s\n",s0->name);
+                    printf("年龄：%d\n",s0->age);
+                    printf("性别：%s\n",s0->gender);
+                    printf("学号：%s\n",s0->s.ID);
+                    printf("宿舍位置：%s\n",s0->dormitoryLocation);
+                    printf("联系方式：%s\n",s0->phone);
+                }
+                break;
+            case 3:
+                saveStudents();
+                printf("Exiting program.\n");
+                exit(0);
+            default:
+                printf("Invalid choice. Please choose again.\n");
+        }
+    }
+    return 0;
+}
