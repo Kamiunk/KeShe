@@ -11,7 +11,7 @@
 void loadStudents() {
 
     studentCount = 0;
-    FILE* file = fopen("C:\\Users\\jhljy\\CLionProjects\\KeShe\\src\\Student.dat", "r");
+    FILE* file = fopen("Student.dat", "r");
 
 
 
@@ -40,7 +40,7 @@ void saveStudents() {
 
 
 
-    FILE *file = fopen("C:\\Users\\jhljy\\CLionProjects\\KeShe\\src\\Student.dat", "w");
+    FILE *file = fopen("Student.dat", "w");
 
     if (file == NULL) {
         printf("学生数据保存失败\n");

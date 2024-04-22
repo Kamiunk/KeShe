@@ -124,9 +124,6 @@ char *loginUser() {
         return "007";
     else {
         for (int i = 0; i < studentCount; i++) {
-            printf("%d", studentCount);
-            printf("%s", students[i].s.ID);
-            printf("%s", students[i].s.correctPassword);
             if (strcmp(students[i].s.ID, userID) == 0 && strcmp(students[i].s.correctPassword, password) == 0) {
                 printf("µÇÂ¼³É¹¦!\n");
 

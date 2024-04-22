@@ -15,13 +15,13 @@ int main() {
     char removeID[ID_LEN];
     while (1) {
         loadStudents();
-        printf("\n******************\n");
-        printf("*学生宿舍管理系统*\n");
+        printf("\n********************\n");
+        printf("* 学生宿舍管理系统 *\n");
         printf("*    1.注册账户    *\n");
         printf("*    2.登录账户    *\n");
         printf("*    3.修改密码    *\n");
         printf("*    3.退出系统    *\n");
-        printf("******************\n");
+        printf("********************\n");
         printf("输入您的选项:");
         fgets(input, sizeof(input), stdin);  // 使用 fgets 读取整行
         if (sscanf(input, "%d", &choice) != 1) {  // 尝试从读取的行中解析整数
