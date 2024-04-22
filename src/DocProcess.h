@@ -8,10 +8,14 @@
 #include <stdio.h>
 #include "Student.h"
 void loadStudents() {
+
     studentCount = 0;
     FILE* file = fopen("D:\\githubFst_test\\KeShe\\src\\Student.dat", "r");
+
+
+
     if (file == NULL) {
-        printf("µ±Ç°ÎÞ¿É¼ÓÔØÊý¾Ý£¬ÇëÏÈÊäÈëÊý¾Ý\n");
+        printf("ï¿½ï¿½Ç°ï¿½Þ¿É¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n");
         return;
     }
 
@@ -28,13 +32,17 @@ void loadStudents() {
     }
 
     fclose(file);
-    printf("Ñ§ÉúÊý¾Ý¼ÓÔØ³É¹¦\n");
+    printf("Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½Ø³É¹ï¿½\n");
 }
 
 void saveStudents() {
+
     FILE* file = fopen("D:\\githubFst_test\\KeShe\\src\\Student.dat", "w");
+
+    FILE *file = fopen("D:\\githubFst_test\\KeShe\\src\\Student.dat", "w");
+
     if (file == NULL) {
-        printf("Ñ§ÉúÊý¾Ý±£´æÊ§°Ü\n");
+        printf("Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½Ê§ï¿½ï¿½\n");
         return;
     }
 
@@ -50,7 +58,9 @@ void saveStudents() {
     }
     fclose(file);
     studentCount = 0;
-    printf("Ñ§ÉúÊý¾Ý±£´æ³É¹¦.\n");
+
+    printf("Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Ý±ï¿½ï¿½ï¿½É¹ï¿½.\n");
+
 }
 
 #endif //KESHE_DOCPROCESS_H

@@ -10,19 +10,20 @@
 int main() {
     int choice;
     char input[100];
+
     char* a;
     char removeID[ID_LEN];
     while (1) {
         loadStudents();
-        printf("\nÑ§ÉúËŞÉá¹ÜÀíÏµÍ³\n");
-        printf("1. ×¢²á\n");
-        printf("2. µÇÂ¼\n");
-        printf("3. ÍË³ö\n");
-        printf("ÊäÈëÄúµÄÑ¡Ïî: ");
-        fgets(input, sizeof(input), stdin);  // Ê¹ÓÃ fgets ¶ÁÈ¡ÕûĞĞ
-        if (sscanf(input, "%d", &choice) != 1) {  // ³¢ÊÔ´Ó¶ÁÈ¡µÄĞĞÖĞ½âÎöÕûÊı
-            printf("ÊäÈëÓĞÎó£¬ÇëÖØĞÂÊäÈë\n");
-            continue;  // Èç¹û½âÎöÊ§°Ü£¬ÌáÊ¾ÖØĞÂÊäÈë
+        printf("\nå­¦ç”Ÿå®¿èˆç®¡ç†ç³»ç»Ÿ\n");
+        printf("1. æ³¨å†Œ\n");
+        printf("2. ç™»å½•\n");
+        printf("3. é€€å‡º\n");
+        printf("è¾“å…¥æ‚¨çš„é€‰é¡¹: ");
+        fgets(input, sizeof(input), stdin);  // ä½¿ç”¨ fgets è¯»å–æ•´è¡Œ
+        if (sscanf(input, "%d", &choice) != 1) {  // å°è¯•ä»è¯»å–çš„è¡Œä¸­è§£ææ•´æ•°
+            printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥\n");
+            continue;  // å¦‚æœè§£æå¤±è´¥ï¼Œæç¤ºé‡æ–°è¾“å…¥
         }
         switch (choice) {
         case 1:
@@ -33,12 +34,12 @@ int main() {
             a = loginUser();
             if (strcmp(a, admin) == 0) {
                 while (1) {
-                    printf("\n»¶Ó­»ØÀ´£¡¹ÜÀíÔ±\n");
-                    printf("1. ²é¿´ËùÓĞÑ§Éú\n");
-                    printf("2. ²éÕÒÑ§Éú\n");
-                    printf("3.É¾³ıÑ§ÉúĞÅÏ¢\n");
-                    printf("4.ÍË³ö \n");
-                    printf("ÊäÈëÄúµÄÑ¡Ïî: ");
+                    printf("\næ¬¢è¿å›æ¥ï¼ç®¡ç†å‘˜\n");
+                    printf("1. æŸ¥çœ‹æ‰€æœ‰å­¦ç”Ÿ\n");
+                    printf("2. æŸ¥æ‰¾å­¦ç”Ÿ\n");
+                    printf("3.åˆ é™¤å­¦ç”Ÿä¿¡æ¯\n");
+                    printf("4.é€€å‡º \n");
+                    printf("è¾“å…¥æ‚¨çš„é€‰é¡¹: ");
                     scanf("%d", &choice);
                     switch (choice) {
                     case 1:
@@ -48,37 +49,38 @@ int main() {
                         searchStudent();
                         break;
                     case 3:
-                        printf("ÇëÊäÈëÒªÉ¾³ıÑ§ÉúµÄÑ§ºÅ£º");
+                        printf("è¯·è¾“å…¥è¦åˆ é™¤å­¦ç”Ÿçš„å­¦å·ï¼š");
                         scanf("%s", removeID);
                         removeStudent(removeID);
                         break;
                     case 4:
                         saveStudents();
-                        printf("ÒÑÍË³ö³ÌĞò\n");
+                        printf("å·²é€€å‡ºç¨‹åº\n");
                         exit(0);
                     default:
-                        printf("ÎŞĞ§Ñ¡Ôñ£¬ÇëÖØĞÂÑ¡Ôñ\n");
+                        printf("æ— æ•ˆé€‰æ‹©ï¼Œè¯·é‡æ–°é€‰æ‹©\n");
+
                     }
                 }
             }
             else {
-                printf("»¶Ó­»ØÀ´£¡%s\n", a);
-                printf("ÒÔÏÂÊÇÄúµÄ¸öÈËĞÅÏ¢£º\n");
+                printf("æ¬¢è¿å›æ¥ï¼%s\n", a);
+                printf("ä»¥ä¸‹æ˜¯æ‚¨çš„ä¸ªäººä¿¡æ¯ï¼š\n");
                 Student* s0 = (Student*)((char*)a - offsetof(Student, name));
-                printf("Ãû×Ö£º%s\n", s0->name);
-                printf("ÄêÁä£º%d\n", s0->age);
-                printf("ĞÔ±ğ£º%s\n", s0->gender);
-                printf("Ñ§ºÅ£º%s\n", s0->s.ID);
-                printf("ËŞÉáÎ»ÖÃ£º%s\n", s0->dormitoryLocation);
-                printf("ÁªÏµ·½Ê½£º%s\n", s0->phone);
+                printf("åå­—ï¼š%s\n", s0->name);
+                printf("å¹´é¾„ï¼š%d\n", s0->age);
+                printf("æ€§åˆ«ï¼š%s\n", s0->gender);
+                printf("å­¦å·ï¼š%s\n", s0->s.ID);
+                printf("å®¿èˆä½ç½®ï¼š%s\n", s0->dormitoryLocation);
+                printf("è”ç³»æ–¹å¼ï¼š%s\n", s0->phone);
             }
             break;
         case 3:
             saveStudents();
-            printf("ÒÑÍË³ö³ÌĞò\n");
+            printf("å·²é€€å‡ºç¨‹åº\n");
             exit(0);
         default:
-            printf("ÎŞĞ§Ñ¡Ôñ£¬ÇëÖØĞÂÑ¡Ôñ\n");
+            printf("æ— æ•ˆé€‰æ‹©ï¼Œè¯·é‡æ–°é€‰æ‹©\n");
         }
     }
     return 0;
