@@ -6,7 +6,9 @@
     ]
   },
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src"
   ],
+  "SelectedNode": "\\src\\method.c",
   "PreviewInSolutionExplorer": false
 }
