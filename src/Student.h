@@ -37,135 +37,139 @@ typedef struct {
 Student students[MAX_STUDENTS];
 int studentCount = 0;
 
-void clearInputBuffer() {
-    while (getchar() != '\n');  // è¯»å–ç›´åˆ°è¡Œå°¾ï¼Œä¸¢å¼ƒæ¢è¡Œç¬¦
+void clear_input_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) { /* Çå¿Õ»º³åÇø */ }
 }
+
 
 void addStudent() {
     if (studentCount >= MAX_STUDENTS) {
-        printf("Database is full. Cannot add more students.\n");
+        printf("Êı¾İÒÑÂú£¬ÎŞ·¨Ìí¼Ó¸ü¶àÑ§ÉúÊı¾İ\n");
     }
-    printf("Enter student's name: ");
+    printf("ÇëÊäÈëÑ§ÉúĞÕÃû: ");
     scanf("%31s", students[studentCount].name);
-    clearInputBuffer();
-    printf("Enter student's gender:");
+    clear_input_buffer();
+    printf("ÇëÊäÈëÑ§ÉúĞÔ±ğ:");
     scanf("%5s", students[studentCount].gender);
-    clearInputBuffer();
-    printf("Enter student's age: ");
+    clear_input_buffer();
+    printf("ÇëÊäÈëÑ§ÉúÄêÁä: ");
     scanf("%d", &students[studentCount].age);
-    clearInputBuffer();
-    printf("Enter dormitoryLocation: ");
+    clear_input_buffer();
+    printf("ÇëÊäÈëÑ§ÉúËŞÉá: ");
     scanf("%10s", students[studentCount].dormitoryLocation);
-    clearInputBuffer();
-    printf("Enter phone number: ");
+    clear_input_buffer();
+    printf("ÇëÊäÈëÊÖ»úºÅ: ");
     scanf("%12s", students[studentCount].phone);
-    clearInputBuffer();
+    clear_input_buffer();
 
 }
 
 void registerUser() {
     Student s1;
 
-    printf("Enter username: ");
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) { /* æ¸…ç©ºç¼“å†²åŒº */ }
+    printf("ÇëÊäÈëÓÃ»§Ãû: ");
     fgets(s1.s.ID, USERNAME_LEN, stdin);
-    s1.s.ID[strcspn(s1.s.ID, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
+    s1.s.ID[strcspn(s1.s.ID, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
 
 
     while (1) {
-        printf("Enter password: ");
-
+        printf("ÇëÊäÈëÃÜÂë: ");
         fgets(s1.s.password, PASSWORD_LEN, stdin);
-        s1.s.password[strcspn(s1.s.password, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
-        printf("Enter the password again: ");
+        s1.s.password[strcspn(s1.s.password, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
+        printf("ÇëÔÙ´ÎÈ·ÈÏÃÜÂë: ");
         fgets(s1.s.correctPassword, PASSWORD_LEN, stdin);
-        //printf("%s",s1.s.correctPassword);
-        s1.s.correctPassword[strcspn(s1.s.correctPassword, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
+        s1.s.correctPassword[strcspn(s1.s.correctPassword, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
         if (strcmp(s1.s.password, s1.s.correctPassword) == 0)break;
-        else printf("The passwords entered twice do not match. Please re-enter them\n");
+        else printf("Á½´ÎÃÜÂë²»Ò»ÖÂ£¬ÇëÖØĞÂÊäÈë\n");
     }
 
 
-    // æ£€æŸ¥ç”¨æˆ·åæ˜¯å¦å·²å­˜åœ¨
+    // ¼ì²éÓÃ»§ÃûÊÇ·ñÒÑ´æÔÚ
     for (int i = 0; i < studentCount; i++) {
         if (strcmp(students[i].s.ID, s1.s.ID) == 0) {
-            printf("UserID already exists. Please try a different userID.\n");
+            printf("¸ÃÓÃ»§ÃûÒÑ±»Õ¼ÓÃ£¬ÇëÖØĞÂÊäÈë\n");
             return;
         }
     }
 
-    // æ·»åŠ æ–°ç”¨æˆ·
+    // Ìí¼ÓĞÂÓÃ»§
     strcpy(students[studentCount].s.ID, s1.s.ID);
-    strcpy(students[studentCount].s.password, s1.s.password);
+    strcpy(students[studentCount].s.correctPassword, s1.s.correctPassword);
     addStudent();
     studentCount++;
-    printf("User registered successfully!\n");
+    printf("ÓÃ»§×¢²á³É¹¦!\n");
 }
 
-char *loginUser() {
+char* loginUser() {
     char userID[USERNAME_LEN];
     char password[PASSWORD_LEN];
 
-    printf("Enter userID: ");
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) { /* æ¸…ç©ºç¼“å†²åŒº */ }
+    printf("ÇëÊäÈëÓÃ»§Ãû: ");
     fgets(userID, USERNAME_LEN, stdin);
-    userID[strcspn(userID, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
 
-    printf("Enter password: ");
+
+    userID[strcspn(userID, "\n")] = 0; // ÒÆ³ı×Ö·û´®Ä©Î²µÄ»»ĞĞ·û
+
+    printf("ÇëÊäÈëÃÜÂë: ");
+
     fgets(password, PASSWORD_LEN, stdin);
-    password[strcspn(password, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
-    if (strcmp((const char *) admin, userID) == 0 && strcmp((const char *) adminpasswords, password) == 0)
+
+
+    password[strcspn(password, "\n")] = 0; // ÒÆ³ı×Ö·û´®Ä©Î²µÄ»»ĞĞ·û
+
+    if (strcmp(admin, userID) == 0 && strcmp(adminpasswords, password) == 0)
         return "007";
     else {
         for (int i = 0; i < studentCount; i++) {
-            if (strcmp(students[i].s.ID, userID) == 0 && strcmp(students[i].s.password, password) == 0) {
-                printf("Login successful!\n");
+            printf("%d", studentCount);
+            printf("%s", students[i].s.ID);
+            printf("%s", students[i].s.correctPassword);
+            if (strcmp(students[i].s.ID, userID) == 0 && strcmp(students[i].s.correctPassword, password) == 0) {
+                printf("µÇÂ¼³É¹¦!\n");
                 return students[i].name;
             }
         }
     }
-    printf("Invalid username or password. Please try again.\n");
+    printf("ÓÃ»§Ãû»òÃÜÂë´íÎó£¬ÇëÖØÊÔ\n");
     return 0;
 }
-
 
 void showStudents() {
     printf("List of all students:\n");
     for (int i = 0; i < studentCount; i++) {
         printf("%d. %s, dormitoryLocation: %s, Phone: %s, StudentID: %s, Gender: %s, Age: %d\n",
-               i + 1,
-               students[i].name,
-               students[i].dormitoryLocation,
-               students[i].phone,
-               students[i].s.ID,
-               students[i].gender,
-               students[i].age);
+            i + 1,
+            students[i].name,
+            students[i].dormitoryLocation,
+            students[i].phone,
+            students[i].s.ID,
+            students[i].gender,
+            students[i].age);
     }
 }
 
 void searchStudent() {
     char ID[50];
-    printf("Enter ID to search: ");
+    printf("ÇëÊäÈë²éÕÒµÄÓÃ»§Ãû: ");
     scanf("%11s", ID);
     for (int i = 0; i < studentCount; i++) {
         if (strcmp(students[i].s.ID, ID) == 0) {
-            printf("Found student: %s, dormitoryLocation: %s, Phone: %s, StudentID: %s, Gender: %s, Age: %d\n",
-                   students[i].name,
-                   students[i].dormitoryLocation,
-                   students[i].phone,
-                   students[i].s.ID,
-                   students[i].gender,
-                   students[i].age
+            printf("Ñ§Éú: %s, ËŞÉáµØÖ·: %s, ÊÖ»úºÅ: %s, Ñ§ºÅ: %s, ĞÔ±ğ: %s, ÄêÁä: %d\n",
+                students[i].name,
+                students[i].dormitoryLocation,
+                students[i].phone,
+                students[i].s.ID,
+                students[i].gender,
+                students[i].age
             );
             return;
         }
     }
-    printf("No student found with the ID %s.\n", ID);
+    printf("Ã»ÓĞÕÒµ½Ñ§ºÅ %s µÄÑ§Éú\n", ID);
 }
 
-void removeStudent(char *ID) {
+void removeStudent(char* ID) {
     int found = 0;
     for (int i = 0; i < studentCount; i++) {
         if (strcmp(students[i].s.ID, ID) == 0) {
@@ -174,12 +178,12 @@ void removeStudent(char *ID) {
                 students[j] = students[j + 1];
 
             studentCount--;
-            printf("å­¦ç”Ÿåˆ é™¤æˆåŠŸï¼\n");
+            printf("Ñ§ÉúÉ¾³ı³É¹¦£¡\n");
             break;
         }
     }
     if (!found) {
-        printf("æœªæ‰¾åˆ°å­¦ç”Ÿã€‚\n");
+        printf("Î´ÕÒµ½Ñ§Éú¡£\n");
     }
 }
 
