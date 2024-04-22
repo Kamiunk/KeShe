@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <malloc.h>
+//#include "DocProcess.h"
 
 #define USERNAME_LEN 31
 #define PASSWORD_LEN 50
@@ -17,11 +17,9 @@
 #define adminpasswords "123456"
 
 typedef struct Person {
-
     char ID[ID_LEN];
     char password[PASSWORD_LEN];
     char correctPassword[PASSWORD_LEN];
-
 } Person;
 
 typedef struct {
@@ -36,96 +34,92 @@ typedef struct {
 #define MAX_STUDENTS 469
 Student students[MAX_STUDENTS];
 int studentCount = 0;
+#include "DocProcess.h"
 
 void clear_input_buffer() {
     int c;
-    while ((c = getchar()) != '\n' && c != EOF) { /* æ¸…ç©ºç¼“å†²åŒº */ }
+    while ((c = getchar()) != '\n' && c != EOF) {
+        /* Çå¿Õ»º³åÇø */
+    }
 }
 
 
 void addStudent() {
     if (studentCount >= MAX_STUDENTS) {
-        printf("æ•°æ®å·²æ»¡ï¼Œæ— æ³•æ·»åŠ æ›´å¤šå­¦ç”Ÿæ•°æ®\n");
+        printf("Êı¾İÒÑÂú£¬ÎŞ·¨Ìí¼Ó¸ü¶àÑ§ÉúÊı¾İ\n");
     }
-    printf("è¯·è¾“å…¥å­¦ç”Ÿå§“å: ");
+    printf("ÇëÊäÈëÑ§ÉúĞÕÃû: ");
     scanf("%31s", students[studentCount].name);
     clear_input_buffer();
 
-    printf("è¯·è¾“å…¥å­¦ç”Ÿæ€§åˆ«:");
+    printf("ÇëÊäÈëÑ§ÉúĞÔ±ğ:");
     scanf("%5s", students[studentCount].gender);
     clear_input_buffer();
-    printf("è¯·è¾“å…¥å­¦ç”Ÿå¹´é¾„: ");
+    printf("ÇëÊäÈëÑ§ÉúÄêÁä:");
     scanf("%d", &students[studentCount].age);
     clear_input_buffer();
-    printf("è¯·è¾“å…¥å­¦ç”Ÿå®¿èˆ: ");
+    printf("ÇëÊäÈëÑ§ÉúËŞÉá:");
     scanf("%10s", students[studentCount].dormitoryLocation);
     clear_input_buffer();
-    printf("è¯·è¾“å…¥æ‰‹æœºå·: ");
+    printf("ÇëÊäÈëÊÖ»úºÅ:");
 
     scanf("%12s", students[studentCount].phone);
     clear_input_buffer();
-
 }
 
 void registerUser() {
     Student s1;
 
-    printf("è¯·è¾“å…¥ç”¨æˆ·å: ");
+    printf("ÇëÊäÈëÓÃ»§Ãû:");
 
     fgets(s1.s.ID, USERNAME_LEN, stdin);
-    s1.s.ID[strcspn(s1.s.ID, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
+    s1.s.ID[strcspn(s1.s.ID, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
 
 
     while (1) {
-
-        printf("è¯·è¾“å…¥å¯†ç : ");
+        printf("ÇëÊäÈëÃÜÂë:");
         fgets(s1.s.password, PASSWORD_LEN, stdin);
-        s1.s.password[strcspn(s1.s.password, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
-        printf("è¯·å†æ¬¡ç¡®è®¤å¯†ç : ");
+        s1.s.password[strcspn(s1.s.password, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
+        printf("ÇëÔÙ´ÎÈ·ÈÏÃÜÂë:");
 
 
         fgets(s1.s.correctPassword, PASSWORD_LEN, stdin);
-        s1.s.correctPassword[strcspn(s1.s.correctPassword, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
+        s1.s.correctPassword[strcspn(s1.s.correctPassword, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
         if (strcmp(s1.s.password, s1.s.correctPassword) == 0)break;
-        else printf("ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´ï¼Œè¯·é‡æ–°è¾“å…¥\n");
+        else printf("Á½´ÎÃÜÂë²»Ò»ÖÂ£¬ÇëÖØĞÂÊäÈë\n");
     }
 
 
-    // æ£€æŸ¥ç”¨æˆ·åæ˜¯å¦å·²å­˜åœ¨
+    // ¼ì²éÓÃ»§ÃûÊÇ·ñÒÑ´æÔÚ
     for (int i = 0; i < studentCount; i++) {
         if (strcmp(students[i].s.ID, s1.s.ID) == 0) {
-            printf("è¯¥ç”¨æˆ·åå·²è¢«å ç”¨ï¼Œè¯·é‡æ–°è¾“å…¥\n");
+            printf("¸ÃÓÃ»§ÃûÒÑ±»Õ¼ÓÃ£¬ÇëÖØĞÂÊäÈë\n");
+            system("pause");
+            system("cls");
             return;
         }
     }
 
-    // æ·»åŠ æ–°ç”¨æˆ·
+    // Ìí¼ÓĞÂÓÃ»§
     strcpy(students[studentCount].s.ID, s1.s.ID);
     strcpy(students[studentCount].s.correctPassword, s1.s.correctPassword);
     addStudent();
     studentCount++;
-    printf("ç”¨æˆ·æ³¨å†ŒæˆåŠŸ!\n");
+    printf("ÓÃ»§×¢²á³É¹¦!\n");
+    saveStudents();
+    system("pause");
+    system("cls");
 }
 
-char* loginUser() {
+char *loginUser() {
     char userID[USERNAME_LEN];
     char password[PASSWORD_LEN];
-
-
-    printf("è¯·è¾“å…¥ç”¨æˆ·å: ");
+    printf("ÇëÊäÈëÓÃ»§Ãû:");
     fgets(userID, USERNAME_LEN, stdin);
-
-
-    userID[strcspn(userID, "\n")] = 0; // ç§»é™¤å­—ç¬¦ä¸²æœ«å°¾çš„æ¢è¡Œç¬¦
-
-    printf("è¯·è¾“å…¥å¯†ç : ");
-
-
+    userID[strcspn(userID, "\n")] = 0; // ÒÆ³ı×Ö·û´®Ä©Î²µÄ»»ĞĞ·û
+    printf("ÇëÊäÈëÃÜÂë: ");
     fgets(password, PASSWORD_LEN, stdin);
-
-
-    password[strcspn(password, "\n")] = 0; // ç§»é™¤å­—ç¬¦ä¸²æœ«å°¾çš„æ¢è¡Œç¬¦
-
+    password[strcspn(password, "\n")] = 0; // ÒÆ³ı×Ö·û´®Ä©Î²µÄ»»ĞĞ·û
     if (strcmp(admin, userID) == 0 && strcmp(adminpasswords, password) == 0)
         return "007";
     else {
@@ -134,52 +128,57 @@ char* loginUser() {
             printf("%s", students[i].s.ID);
             printf("%s", students[i].s.correctPassword);
             if (strcmp(students[i].s.ID, userID) == 0 && strcmp(students[i].s.correctPassword, password) == 0) {
-
-                printf("ç™»å½•æˆåŠŸ!\n");
+                printf("µÇÂ¼³É¹¦!\n");
 
                 return students[i].name;
             }
         }
     }
-    printf("ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼Œè¯·é‡è¯•\n");
+    printf("ÓÃ»§Ãû»òÃÜÂë´íÎó£¬ÇëÖØÊÔ\n");
     return 0;
 }
 
 void showStudents() {
     printf("List of all students:\n");
     for (int i = 0; i < studentCount; i++) {
-        printf("%d. %s, dormitoryLocation: %s, Phone: %s, StudentID: %s, Gender: %s, Age: %d\n",
-            i + 1,
-            students[i].name,
-            students[i].dormitoryLocation,
-            students[i].phone,
-            students[i].s.ID,
-            students[i].gender,
-            students[i].age);
+        printf("%d. Ñ§ÉúĞÕÃû£º%s, ËŞÉáÎ»ÖÃ: %s, ÊÖ»úºÅÂë: %s, ÓÃ»§Ãû: %s, ĞÔ±ğ: %s, ÄêÁä: %d\n",
+               i + 1,
+               students[i].name,
+               students[i].dormitoryLocation,
+               students[i].phone,
+               students[i].s.ID,
+               students[i].gender,
+               students[i].age);
     }
+    system("pause");
+    system("cls");
 }
 
 void searchStudent() {
     char ID[50];
-    printf("è¯·è¾“å…¥æŸ¥æ‰¾çš„ç”¨æˆ·å: ");
+    printf("ÇëÊäÈë²éÕÒµÄÓÃ»§Ãû:");
     scanf("%11s", ID);
     for (int i = 0; i < studentCount; i++) {
         if (strcmp(students[i].s.ID, ID) == 0) {
-            printf("å­¦ç”Ÿ: %s, å®¿èˆåœ°å€: %s, æ‰‹æœºå·: %s, å­¦å·: %s, æ€§åˆ«: %s, å¹´é¾„: %d\n",
-                students[i].name,
-                students[i].dormitoryLocation,
-                students[i].phone,
-                students[i].s.ID,
-                students[i].gender,
-                students[i].age
+            printf("Ñ§Éú: %s, ËŞÉáµØÖ·: %s, ÊÖ»úºÅ: %s, Ñ§ºÅ: %s, ĞÔ±ğ: %s, ÄêÁä: %d\n",
+                   students[i].name,
+                   students[i].dormitoryLocation,
+                   students[i].phone,
+                   students[i].s.ID,
+                   students[i].gender,
+                   students[i].age
             );
+            system("pause");
+            system("cls");
             return;
         }
     }
-    printf("æ²¡æœ‰æ‰¾åˆ°å­¦å· %s çš„å­¦ç”Ÿ\n", ID);
+    printf("Ã»ÓĞÕÒµ½Ñ§ºÅÎª %s µÄÑ§Éú\n", ID);
+    system("pause");
+    system("cls");
 }
 
-void removeStudent(char* ID) {
+void removeStudent(char *ID) {
     int found = 0;
     for (int i = 0; i < studentCount; i++) {
         if (strcmp(students[i].s.ID, ID) == 0) {
@@ -188,13 +187,42 @@ void removeStudent(char* ID) {
                 students[j] = students[j + 1];
 
             studentCount--;
-            printf("å­¦ç”Ÿåˆ é™¤æˆåŠŸï¼\n");
+            printf("Ñ§ÉúÉ¾³ı³É¹¦£¡\n");
             break;
         }
     }
     if (!found) {
-        printf("æœªæ‰¾åˆ°å­¦ç”Ÿã€‚\n");
+        printf("Î´ÕÒµ½Ñ§Éú\n");
     }
+}
+
+void changePassword() {
+    char userID[USERNAME_LEN];
+    char password[PASSWORD_LEN];
+    char correctPassword[PASSWORD_LEN];
+    printf("ÇëÊäÈëÓÃ»§Ãû:");
+    fgets(userID, USERNAME_LEN, stdin);
+    userID[strcspn(userID, "\n")] = 0; // ÒÆ³ı×Ö·û´®Ä©Î²µÄ»»ĞĞ·û
+    printf("ÇëÊäÈëÃÜÂë: ");
+    fgets(password, PASSWORD_LEN, stdin);
+    password[strcspn(password, "\n")] = 0; // ÒÆ³ı×Ö·û´®Ä©Î²µÄ»»ĞĞ·û
+    for (int i = 0; i < studentCount; i++) {
+        if (strcmp(students[i].s.ID, userID) == 0 && strcmp(students[i].s.correctPassword, password) == 0) {
+            while (1) {
+                printf("ÇëÊäÈëĞÂÃÜÂë:");
+                fgets(password, PASSWORD_LEN, stdin);
+                password[strcspn(password, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
+                printf("ÇëÔÙ´ÎÈ·ÈÏĞÂÃÜÂë:");
+                fgets(correctPassword, PASSWORD_LEN, stdin);
+                correctPassword[strcspn(correctPassword, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
+                if (strcmp(password, correctPassword) == 0)break;
+                else printf("Á½´ÎÃÜÂë²»Ò»ÖÂ£¬ÇëÖØĞÂÊäÈë\n");
+            }
+            strcpy(students[i].s.correctPassword, correctPassword);
+            if (strcmp(students[i].s.correctPassword, correctPassword) == 0)printf("ÃÜÂëĞŞ¸Ä³É¹¦£¡");
+        }
+    }
+    return;
 }
 
 #endif //KESHE_STUDENT_H
