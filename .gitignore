@@ -168,4 +168,5 @@ obj/
 
 # macOS/OS X专用文件
 *.DS_Store
+*.txt
 
