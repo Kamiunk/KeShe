@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "Student.h"
 void loadStudents() {
+    studentCount=0;
     FILE *file = fopen("D:\\githubFst_test\\KeShe\\src\\Student.dat", "r");
     if (file == NULL) {
         printf("No student data to load.\n");

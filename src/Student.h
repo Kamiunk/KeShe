@@ -39,12 +39,9 @@ int studentCount = 0;
 
 void clear_input_buffer() {
     int c;
-    while ((c = getchar()) != '\n' && c != EOF) { /* æ¸…ç©ºç¼“å†²åŒº */ }
+    while ((c = getchar()) != '\n' && c != EOF) { /* Çå¿Õ»º³åÇø */ }
 }
 
-void clearInputBuffer() {
-    while (getchar() != '\n');  // è¯»å–ç›´åˆ°è¡Œå°¾ï¼Œä¸¢å¼ƒæ¢è¡Œç¬¦
-}
 
 void addStudent() {
     if (studentCount >= MAX_STUDENTS) {
@@ -52,19 +49,19 @@ void addStudent() {
     }
     printf("Enter student's name: ");
     scanf("%31s", students[studentCount].name);
-    clearInputBuffer();
+    clear_input_buffer();
     printf("Enter student's gender:");
     scanf("%5s", students[studentCount].gender);
-    clearInputBuffer();
+    clear_input_buffer();
     printf("Enter student's age: ");
     scanf("%d", &students[studentCount].age);
-    clearInputBuffer();
+    clear_input_buffer();
     printf("Enter dormitoryLocation: ");
     scanf("%10s", students[studentCount].dormitoryLocation);
-    clearInputBuffer();
+    clear_input_buffer();
     printf("Enter phone number: ");
     scanf("%12s", students[studentCount].phone);
-    clearInputBuffer();
+    clear_input_buffer();
 
 }
 
@@ -72,27 +69,23 @@ void registerUser() {
     Student s1;
 
     printf("Enter username: ");
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) { /* æ¸…ç©ºç¼“å†²åŒº */ }
     fgets(s1.s.ID, USERNAME_LEN, stdin);
-    s1.s.ID[strcspn(s1.s.ID, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
+    s1.s.ID[strcspn(s1.s.ID, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
 
 
     while (1) {
         printf("Enter password: ");
-
         fgets(s1.s.password, PASSWORD_LEN, stdin);
-        s1.s.password[strcspn(s1.s.password, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
+        s1.s.password[strcspn(s1.s.password, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
         printf("Enter the password again: ");
         fgets(s1.s.correctPassword, PASSWORD_LEN, stdin);
-        //printf("%s",s1.s.correctPassword);
-        s1.s.correctPassword[strcspn(s1.s.correctPassword, "\n")] = 0; // ç§»é™¤æ¢è¡Œç¬¦
+        s1.s.correctPassword[strcspn(s1.s.correctPassword, "\n")] = 0; // ÒÆ³ı»»ĞĞ·û
         if (strcmp(s1.s.password, s1.s.correctPassword) == 0)break;
         else printf("The passwords entered twice do not match. Please re-enter them\n");
     }
 
 
-    // æ£€æŸ¥ç”¨æˆ·åæ˜¯å¦å·²å­˜åœ¨
+    // ¼ì²éÓÃ»§ÃûÊÇ·ñÒÑ´æÔÚ
     for (int i = 0; i < studentCount; i++) {
         if (strcmp(students[i].s.ID, s1.s.ID) == 0) {
             printf("UserID already exists. Please try a different userID.\n");
@@ -100,32 +93,39 @@ void registerUser() {
         }
     }
 
-    // æ·»åŠ æ–°ç”¨æˆ·
+    // Ìí¼ÓĞÂÓÃ»§
     strcpy(students[studentCount].s.ID, s1.s.ID);
-    strcpy(students[studentCount].s.password, s1.s.password);
+    strcpy(students[studentCount].s.correctPassword, s1.s.correctPassword);
     addStudent();
     studentCount++;
     printf("User registered successfully!\n");
 }
+
 char *loginUser() {
     char userID[USERNAME_LEN];
     char password[PASSWORD_LEN];
 
     printf("Enter userID: ");
-    clear_input_buffer();  // æ¸…é™¤ä»»ä½•æ®‹ç•™çš„è¾“å…¥ï¼ŒåŒ…æ‹¬æ¢è¡Œç¬¦
     fgets(userID, USERNAME_LEN, stdin);
-    userID[strcspn(userID, "\n")] = 0; // ç§»é™¤å­—ç¬¦ä¸²æœ«å°¾çš„æ¢è¡Œç¬¦
+
+
+    userID[strcspn(userID, "\n")] = 0; // ÒÆ³ı×Ö·û´®Ä©Î²µÄ»»ĞĞ·û
 
     printf("Enter password: ");
-    clear_input_buffer();  // å†æ¬¡æ¸…é™¤ï¼Œä»¥é˜²ä¸‡ä¸€
-    fgets(password, PASSWORD_LEN, stdin);
-    password[strcspn(password, "\n")] = 0; // ç§»é™¤å­—ç¬¦ä¸²æœ«å°¾çš„æ¢è¡Œç¬¦
 
-    if (strcmp((const char *) admin, userID) == 0 && strcmp((const char *) adminpasswords, password) == 0)
+    fgets(password, PASSWORD_LEN, stdin);
+
+
+    password[strcspn(password, "\n")] = 0; // ÒÆ³ı×Ö·û´®Ä©Î²µÄ»»ĞĞ·û
+
+    if (strcmp(admin, userID) == 0 && strcmp(adminpasswords, password) == 0)
         return "007";
     else {
         for (int i = 0; i < studentCount; i++) {
-            if (strcmp(students[i].s.ID, userID) == 0 && strcmp(students[i].s.password, password) == 0) {
+            printf("%d", studentCount);
+            printf("%s", students[i].s.ID);
+            printf("%s", students[i].s.correctPassword);
+            if (strcmp(students[i].s.ID, userID) == 0 && strcmp(students[i].s.correctPassword, password) == 0) {
                 printf("Login successful!\n");
                 return students[i].name;
             }
@@ -134,7 +134,6 @@ char *loginUser() {
     printf("Invalid username or password. Please try again.\n");
     return 0;
 }
-
 
 void showStudents() {
     printf("List of all students:\n");
@@ -179,12 +178,12 @@ void removeStudent(char *ID) {
                 students[j] = students[j + 1];
 
             studentCount--;
-            printf("å­¦ç”Ÿåˆ é™¤æˆåŠŸï¼\n");
+            printf("Ñ§ÉúÉ¾³ı³É¹¦£¡\n");
             break;
         }
     }
     if (!found) {
-        printf("æœªæ‰¾åˆ°å­¦ç”Ÿã€‚\n");
+        printf("Î´ÕÒµ½Ñ§Éú¡£\n");
     }
 }
 
