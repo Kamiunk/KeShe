@@ -7,11 +7,10 @@
 
 #include <stdio.h>
 #include <string.h>
-//#include "DocProcess.h"
 
-#define USERNAME_LEN 31
+#define NAME_LEN 32
+#define ID_LEN 12
 #define PASSWORD_LEN 50
-#define ID_LEN 11
 
 #define admin "007"
 #define adminpasswords "123456"
@@ -24,11 +23,11 @@ typedef struct Person {
 
 typedef struct {
     Person s;
-    char name[USERNAME_LEN];
-    char gender[5];
+    char name[NAME_LEN];
+    char gender[6];
     int age;
-    char phone[12];
-    char dormitoryLocation[10];
+    char phone[13];
+    char dormitoryLocation[11];
 } Student;
 
 #define MAX_STUDENTS 469
@@ -45,26 +44,31 @@ void clear_input_buffer() {
 
 
 void addStudent() {
+
     if (studentCount >= MAX_STUDENTS) {
         printf("数据已满，无法添加更多学生数据\n");
     }
+    //password[strcspn(password, "\n")] = 0;
+
     printf("请输入学生姓名: ");
-    scanf("%31s", students[studentCount].name);
-    clear_input_buffer();
+    fgets(students[studentCount].name,NAME_LEN+1,stdin);
+    students[studentCount].name[strcspn(students[studentCount].name,"\n")]=0;
 
     printf("请输入学生性别:");
-    scanf("%5s", students[studentCount].gender);
-    clear_input_buffer();
+    fgets(students[studentCount].gender,sizeof (students[studentCount].gender),stdin);
+    students[studentCount].gender[strcspn(students[studentCount].gender,"\n")]=0;
+
     printf("请输入学生年龄:");
     scanf("%d", &students[studentCount].age);
     clear_input_buffer();
-    printf("请输入学生宿舍:");
-    scanf("%10s", students[studentCount].dormitoryLocation);
-    clear_input_buffer();
-    printf("请输入手机号:");
 
-    scanf("%12s", students[studentCount].phone);
-    clear_input_buffer();
+    printf("请输入学生宿舍地址:");
+    fgets(students[studentCount].dormitoryLocation,sizeof (students[studentCount].dormitoryLocation),stdin);
+    students[studentCount].dormitoryLocation[strcspn(students[studentCount].dormitoryLocation,"\n")]=0;
+
+    printf("请输入手机号:");
+    fgets(students[studentCount].phone,sizeof (students[studentCount].phone),stdin);
+    students[studentCount].phone[strcspn(students[studentCount].phone,"\n")]=0;
 }
 
 void registerUser() {
@@ -72,16 +76,14 @@ void registerUser() {
 
     printf("请输入用户名:");
 
-    fgets(s1.s.ID, USERNAME_LEN, stdin);
+    fgets(s1.s.ID, NAME_LEN, stdin);
     s1.s.ID[strcspn(s1.s.ID, "\n")] = 0; // 移除换行符
-
 
     while (1) {
         printf("请输入密码:");
         fgets(s1.s.password, PASSWORD_LEN, stdin);
         s1.s.password[strcspn(s1.s.password, "\n")] = 0; // 移除换行符
         printf("请再次确认密码:");
-
 
         fgets(s1.s.correctPassword, PASSWORD_LEN, stdin);
         s1.s.correctPassword[strcspn(s1.s.correctPassword, "\n")] = 0; // 移除换行符
@@ -112,10 +114,10 @@ void registerUser() {
 }
 
 char *loginUser() {
-    char userID[USERNAME_LEN];
+    char userID[NAME_LEN];
     char password[PASSWORD_LEN];
     printf("请输入用户名:");
-    fgets(userID, USERNAME_LEN, stdin);
+    fgets(userID, NAME_LEN, stdin);
     userID[strcspn(userID, "\n")] = 0; // 移除字符串末尾的换行符
     printf("请输入密码: ");
     fgets(password, PASSWORD_LEN, stdin);
@@ -126,7 +128,6 @@ char *loginUser() {
         for (int i = 0; i < studentCount; i++) {
             if (strcmp(students[i].s.ID, userID) == 0 && strcmp(students[i].s.correctPassword, password) == 0) {
                 printf("登录成功!\n");
-
                 return students[i].name;
             }
         }
@@ -185,20 +186,24 @@ void removeStudent(char *ID) {
 
             studentCount--;
             printf("学生删除成功！\n");
+            system("pause");
+            system("cls");
             break;
         }
     }
     if (!found) {
         printf("未找到学生\n");
+        system("pause");
+        system("cls");
     }
 }
 
 void changePassword() {
-    char userID[USERNAME_LEN];
+    char userID[NAME_LEN];
     char password[PASSWORD_LEN];
     char correctPassword[PASSWORD_LEN];
     printf("请输入用户名:");
-    fgets(userID, USERNAME_LEN, stdin);
+    fgets(userID, NAME_LEN, stdin);
     userID[strcspn(userID, "\n")] = 0; // 移除字符串末尾的换行符
     printf("请输入密码: ");
     fgets(password, PASSWORD_LEN, stdin);
@@ -216,7 +221,11 @@ void changePassword() {
                 else printf("两次密码不一致，请重新输入\n");
             }
             strcpy(students[i].s.correctPassword, correctPassword);
-            if (strcmp(students[i].s.correctPassword, correctPassword) == 0)printf("密码修改成功！");
+            if (strcmp(students[i].s.correctPassword, correctPassword) == 0){
+                printf("密码修改成功！");
+                system("pause");
+                system("cls");
+            }
         }
     }
     return;
