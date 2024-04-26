@@ -37,20 +37,48 @@ int main() {
                 a = loginUser();
                 if (strcmp(a, admin) == 0) {
                     while (1) {
-                        printf("\n欢迎回来！管理员\n");
-                        printf("1.查看所有学生\n");
-                        printf("2.查找学生信息\n");
-                        printf("3.删除学生信息\n");
-                        printf("4.添加学生信息\n");
-                        printf("5.退出 \n");
+                        printf("\n************************\n");
+                        printf("* 欢迎回来！管理员     *\n");
+                        printf("* 1.查看所有学生       *\n");
+                        printf("* 2.查找并修改学生信息 *\n");
+                        printf("* 3.删除学生信息       *\n");
+                        printf("* 4.添加学生信息       *\n");
+                        printf("* 5.退出               *\n");
+                        printf("************************\n");
                         printf("输入您的选项:");
                         scanf("%d", &choice);
+                        printf("\n");
                         switch (choice) {
                             case 1:
                                 showStudents();
                                 break;
+                                Student *s;
                             case 2:
-                                searchStudent();
+                                s = searchStudent();
+                                printf("\n下一步操作\n");
+                                while (1) {
+                                    printf("1.修改学生信息\n");
+                                    printf("2.返回\n");
+                                    printf("请输入您的选择：");
+                                    scanf("%d", &choice);
+                                    system("cls");
+                                    printf("\n");
+                                    clear_input_buffer();
+                                    switch (choice) {
+                                        case 1:
+                                            ModifyStuInfor(s);
+                                            printf("1.修改学生信息\n");
+                                            printf("2.退出\n");
+                                            printf("请输入您的选择：");
+                                            break;
+                                        case 2:
+                                            break;
+                                        default:
+                                            printf("无效输入，请重新输入一个整数");
+                                            break;
+                                    }
+                                    if (choice == 2)break;
+                                }
                                 break;
                             case 3:
                                 printf("请输入要删除学生的学号:");
@@ -59,9 +87,7 @@ int main() {
                                 break;
                             case 4:
                                 clear_input_buffer();
-
-
-                            registerUser();
+                                registerUser();
                                 break;
                             case 5:
                                 clear_input_buffer();
@@ -72,13 +98,11 @@ int main() {
                                 printf("无效选择，请重新选择\n");
 
                         }
-                        if(choice==5)break;
+                        if (choice == 5)break;
                     }
-                }
-            else if(a=="0") {
-                break;
-            }
-            else {
+                } else if (a == "0") {
+                    break;
+                } else {
                     printf("欢迎回来！%s\n", a);
                     printf("以下是您的个人信息：\n");
                     Student *s0 = (Student *) ((char *) a - offsetof(Student, name));
