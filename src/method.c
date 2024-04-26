@@ -59,7 +59,9 @@ int main() {
                                 break;
                             case 4:
                                 clear_input_buffer();
-                                registerUser();
+
+
+                            registerUser();
                                 break;
                             case 5:
                                 clear_input_buffer();
@@ -72,7 +74,11 @@ int main() {
                         }
                         if(choice==5)break;
                     }
-                } else {
+                }
+            else if(a=="0") {
+                break;
+            }
+            else {
                     printf("欢迎回来！%s\n", a);
                     printf("以下是您的个人信息：\n");
                     Student *s0 = (Student *) ((char *) a - offsetof(Student, name));

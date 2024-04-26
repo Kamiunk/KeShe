@@ -133,7 +133,8 @@ char *loginUser() {
         }
     }
     printf("用户名或密码错误，请重试\n");
-    return 0;
+
+    return "0";//
 }
 
 void showStudents() {
@@ -199,6 +200,7 @@ void removeStudent(char *ID) {
 }
 
 void changePassword() {
+    int j=0;
     char userID[NAME_LEN];
     char password[PASSWORD_LEN];
     char correctPassword[PASSWORD_LEN];
@@ -211,6 +213,7 @@ void changePassword() {
     for (int i = 0; i < studentCount; i++) {
         if (strcmp(students[i].s.ID, userID) == 0 && strcmp(students[i].s.correctPassword, password) == 0) {
             while (1) {
+                j++;
                 printf("请输入新密码:");
                 fgets(password, PASSWORD_LEN, stdin);
                 password[strcspn(password, "\n")] = 0; // 移除换行符
@@ -222,11 +225,16 @@ void changePassword() {
             }
             strcpy(students[i].s.correctPassword, correctPassword);
             if (strcmp(students[i].s.correctPassword, correctPassword) == 0){
-                printf("密码修改成功！");
+                printf("密码修改成功！\n");
                 system("pause");
                 system("cls");
             }
         }
+    }
+    if(j==0) {
+        printf("密码错误！\n");
+        system("pause");
+        system("cls");
     }
     return;
 }
