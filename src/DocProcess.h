@@ -56,7 +56,7 @@ void saveStudents() {
                 students[i].dormitoryLocation);
     }
     fclose(file);
-    studentCount = 0;
+    //studentCount = 0;
 
     printf("学生数据保存成功\n");
 
