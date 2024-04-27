@@ -15,7 +15,7 @@
 #define admin "007"
 #define adminpasswords "123456"
 
-typedef struct Person {
+typedef struct  {
     char ID[ID_LEN];
     char password[PASSWORD_LEN];
     char correctPassword[PASSWORD_LEN];
@@ -214,7 +214,7 @@ void ModifyStuInfor(Student *s0) {
                 break;
             case 4:
                 memset(s0->gender, 0, sizeof(s0->gender));
-                printf("请输入新的年龄：");
+                printf("请输入新的性别：");
                 fgets(s0->gender, sizeof(s0->gender), stdin);
                 s0->gender[strcspn(s0->gender, "\n")] = 0;
                 break;
@@ -238,8 +238,6 @@ void ModifyStuInfor(Student *s0) {
         }
 
     }
-
-
 }
 
 void removeStudent(char *ID) {

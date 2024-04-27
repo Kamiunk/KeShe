@@ -10,12 +10,11 @@
 int main() {
     int choice;
     char input[100];
-
     char *a;
     char removeID[ID_LEN];
 
     while (1) {
-        loadStudents();
+        loadStudents();//加载学生信息
         printf("\n********************\n");
         printf("* 学生宿舍管理系统 *\n");
         printf("*    1.注册账户    *\n");
@@ -29,7 +28,7 @@ int main() {
             printf("输入有误，请重新输入\n");
             continue;  // 如果解析失败，提示重新输入
         }
-        switch (choice) {
+        switch (choice) {//首界面选项
             case 1:
                 registerUser();
                 break;
@@ -48,7 +47,7 @@ int main() {
                         printf("输入您的选项:");
                         scanf("%d", &choice);
                         printf("\n");
-                        switch (choice) {
+                        switch (choice) {//管理员界面选项
                             case 1:
                                 showStudents();
                                 break;
@@ -64,7 +63,7 @@ int main() {
                                     system("cls");
                                     printf("\n");
                                     clear_input_buffer();
-                                    switch (choice) {
+                                    switch (choice) {//选择是否更改学生信息
                                         case 1:
                                             ModifyStuInfor(s);
                                             printf("1.修改学生信息\n");
